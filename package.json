@@ -1,0 +1,18 @@
+{
+  "name": "discord-block-bot",
+  "version": "1.0.0",
+  "description": "Discord bot that pulls NENG/CHTA block information live and returns it on the Discord server that invites it.",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "blockchain",
+    "NENG",
+    "CHTA"
+  ],
+  "author": "Yaclaudes Minoso",
+  "license": "ISC"
+}
