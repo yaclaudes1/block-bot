@@ -2,17 +2,29 @@
   "name": "discord-block-bot",
   "version": "1.0.0",
   "description": "Discord bot that pulls NENG/CHTA block information live and returns it on the Discord server that invites it.",
-  "main": "bot.js",
+  "main": "blockBot.js",
+  "dependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaclaudes1/neng_chta_block_bot.git"
+  },
+  "keywords": [ 
     "discord",
-    "bot",
+    "blockBot",
     "blockchain",
     "NENG",
     "CHTA"
-  ],
+    ],
   "author": "Yaclaudes Minoso",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yaclaudes1/neng_chta_block_bot/issues"
+  },
+  "homepage": "https://github.com/yaclaudes1/neng_chta_block_bot#readme"
 }
