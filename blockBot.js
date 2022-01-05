@@ -91,10 +91,10 @@ else if (message.content.substring(0, 1) == '?') {
         // ?help
         case 'help':
             
-            message.reply('TODO:IMPORT help list!'); 
+            message.reply('Block Bot - Check NENG & CHTA Block Info\n-----------------------------------------------------------------------------------------------\n!DiffCheck: Displays NENG & CHTA Difficulty Info\n!FullTimeCheck: Displays time for last 720 (CHTA) & 1440 (NENG) taken to solve \n!TimeCheck: Displays time for last 20 (CHTA) & 20 (NENG) taken to solve \n?Help: Shows this message \n-----------------------------------------------------------------------------------------------\nDisclaimer: Commands are not case sensitive.'); 
         
             break;
-            
+
         default:
             
             message.reply('Incorrect command entered. Please try again!');
