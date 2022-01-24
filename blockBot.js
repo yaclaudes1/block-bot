@@ -1,121 +1,98 @@
 // Require dependencies
-//const { Client } = require('discord.js');
-//const dotenv = require('dotenv');
+const fetch = require('node-fetch');
+const { token } = require('dotenv').config();
+const { Client, Intents } = require('discord.js');
 
-//load environmental variables
-require('dotenv').config();
 
-//Instantiate Block-bot
+// Instantiate Block-bot
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-const Discord = require('discord.js');
-const blockBot = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
-
-//Block-bot Authentication
-
-blockBot.on('ready', () => {
-    console.log(`Logged in as ${blockBot.user.tag}!`);
+// Block-bot Authentication
+client.once('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
 });
 
 
+client.on('messageCreate', message => {
+
+    // client's commands starting with '!' start here:
+
+    if (message.content.substring(0, 1) == '!') {
+        var args = message.content.substring(1).split(' ');
+        var command = args[0].toLowerCase();
 
 
+        args = args.splice(1);
 
-blockBot.on('messageCreate', message => {
-
-// blockBot's commands starting with '!' start here:
-
-
-if (message.content.substring(0, 1) == '!') {
-
-    var args = message.content.substring(1).split(' ');
-
-    var command = args[0].toLowerCase();
-
-
-    args = args.splice(1);
-    
-
-    switch(command) {
+        switch (command) {
 
         // !DiffCheck
 
         case 'diffcheck':
 
             message.reply('TODO:IMPORT diffcheck API FROM BLOCKCHAIN EXPLORER HERE! ');
-          
-        break;
-        
-        
-        
+            break;
+
         // !FullTimeCheck
         case 'fulltimecheck':
 
-           message.reply('TODO:IMPORT Fulltimecheck API FROM BLOCKCHAIN EXPLORER HERE!'); 
-
-        break;
-        
-        
+            message.reply('TODO:IMPORT Fulltimecheck API FROM BLOCKCHAIN EXPLORER HERE!');
+            break;
 
         // !TimeCheck
         case 'timecheck':
 
-            message.reply('TODO:IMPORT TimeCheck API FROM BLOCKCHAIN EXPLORER HERE!'); 
-            
-        break;
-        
-        default:
-            
-            message.reply('Incorrect command entered. Please try again!');
-        
-            
-
-        
-        // MORE COMMANDS IF NECESSARY
-
-     }
-
- }
- 
- 
-else if (message.content.substring(0, 1) == '?') {
-
-    var args = message.content.substring(1).split(' ');
-
-    var command = args[0].toLowerCase();
-
-
-    args = args.splice(1);
-
-    switch(command) {
-
-        // ?help
-        case 'help':
-            
-            message.reply('Block Bot - Check NENG & CHTA Block Info\n-----------------------------------------------------------------------------------------------\n!DiffCheck: Displays NENG & CHTA Difficulty Info\n!FullTimeCheck: Displays time for last 720 (CHTA) & 1440 (NENG) taken to solve \n!TimeCheck: Displays time for last 20 (CHTA) & 20 (NENG) taken to solve \n?Help: Shows this message \n-----------------------------------------------------------------------------------------------\nDisclaimer: Commands are not case sensitive.'); 
-        
+            message.reply('TODO:IMPORT TimeCheck API FROM BLOCKCHAIN EXPLORER HERE!');
             break;
 
         default:
-            
+
+            message.reply('Incorrect command entered. Please try again!');
+
+
+        // MORE COMMANDS IF NECESSARY
+
+        }
+
+    }
+
+
+    else if (message.content.substring(0, 1) == '?') {
+
+        var args = message.content.substring(1).split(' ');
+
+        var command = args[0].toLowerCase();
+
+
+        args = args.splice(1);
+
+        switch (command) {
+
+        // ?help
+        case 'help':
+
+            message.reply('Block Bot - Check NENG & CHTA Block Info\n-----------------------------------------------------------------------------------------------\n!DiffCheck: Displays NENG & CHTA Difficulty Info\n!FullTimeCheck: Displays time for last 720 (CHTA) & 1440 (NENG) taken to solve \n!TimeCheck: Displays time for last 20 (CHTA) & 20 (NENG) taken to solve \n?Help: Shows this message \n-----------------------------------------------------------------------------------------------\nDisclaimer: Commands are not case sensitive.'); 
+
+            break;
+
+        default:
+
             message.reply('Incorrect command entered. Please try again!');
 
         // MORE COMMANDS IF NECESSARY
 
-     }
+        }
 
- } 
- 
- if (message.content.substring(0, 1) == '?' && message.content.substring(0, 1) == '!' ) {
+    }
 
-       message.reply('Incorrect command/format entered. Please try again!'); 
-        
-          
+    if (message.content.substring(0, 1) == '?' && message.content.substring(0, 1) == '!' ) {
+
+        message.reply('Incorrect command/format entered. Please try again!'); 
 
 
- } 
- 
+    }
 
-});//end of commands input (
+});
 
-
-blockBot.login(process.env.BLOCK_BOT_TOKEN);
+// Login to Discord with blockBot's token
+client.login(token);
