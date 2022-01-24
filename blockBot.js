@@ -1,8 +1,8 @@
 // Require dependencies
 const fetch = require('node-fetch');
-const { token } = require('dotenv').config();
 const { Client, Intents } = require('discord.js');
-
+require('dotenv').config();
+const TOKEN = process.env['TOKEN'];
 
 // Instantiate Block-bot
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -95,4 +95,4 @@ client.on('messageCreate', message => {
 });
 
 // Login to Discord with blockBot's token
-client.login(token);
+client.login(TOKEN);
