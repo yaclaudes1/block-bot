@@ -1,11 +1,24 @@
 // Require dependencies
 const fetch = require('node-fetch');
-const { Client, Intents } = require('discord.js');
+const fs = require('fs');
+const { Client, Collection, Intents } = require('discord.js');
+
 require('dotenv').config();
 const TOKEN = process.env['TOKEN'];
 
-// Instantiate Block-bot
+
+// Instantiate Block-bot with its independent commands
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+client.commands = new Collection();
+
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    // Set a new item in the Collection
+    // With the key as the command name and the value as the exported module
+    client.commands.set(command.data.name, command);
+}
 
 // Block-bot Authentication
 client.once('ready', () => {
@@ -13,84 +26,24 @@ client.once('ready', () => {
 });
 
 
-client.on('messageCreate', message => {
+client.on('interactionCreate', async interaction => {
 
-    // client's commands starting with '!' start here:
+    if (!interaction.isCommand()) return;
 
-    if (message.content.substring(0, 1) == '!') {
-        var args = message.content.substring(1).split(' ');
-        var command = args[0].toLowerCase();
+    const command = client.commands.get(interaction.commandName);
 
-
-        args = args.splice(1);
-
-        switch (command) {
-
-        // !DiffCheck
-
-        case 'diffcheck':
-
-            message.reply('TODO:IMPORT diffcheck API FROM BLOCKCHAIN EXPLORER HERE! ');
-            break;
-
-        // !FullTimeCheck
-        case 'fulltimecheck':
-
-            message.reply('TODO:IMPORT Fulltimecheck API FROM BLOCKCHAIN EXPLORER HERE!');
-            break;
-
-        // !TimeCheck
-        case 'timecheck':
-
-            message.reply('TODO:IMPORT TimeCheck API FROM BLOCKCHAIN EXPLORER HERE!');
-            break;
-
-        default:
-
-            message.reply('Incorrect command entered. Please try again!');
+    if (!command) return;
 
 
-        // MORE COMMANDS IF NECESSARY
-
-        }
-
+    try {
+        await command.execute(interaction);
     }
 
-
-    else if (message.content.substring(0, 1) == '?') {
-
-        var args = message.content.substring(1).split(' ');
-
-        var command = args[0].toLowerCase();
-
-
-        args = args.splice(1);
-
-        switch (command) {
-
-        // ?help
-        case 'help':
-
-            message.reply('Block Bot - Check NENG & CHTA Block Info\n-----------------------------------------------------------------------------------------------\n!DiffCheck: Displays NENG & CHTA Difficulty Info\n!FullTimeCheck: Displays time for last 720 (CHTA) & 1440 (NENG) taken to solve \n!TimeCheck: Displays time for last 20 (CHTA) & 20 (NENG) taken to solve \n?Help: Shows this message \n-----------------------------------------------------------------------------------------------\nDisclaimer: Commands are not case sensitive.'); 
-
-            break;
-
-        default:
-
-            message.reply('Incorrect command entered. Please try again!');
-
-        // MORE COMMANDS IF NECESSARY
-
-        }
-
+    catch (error) {
+        console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
     }
 
-    if (message.content.substring(0, 1) == '?' && message.content.substring(0, 1) == '!' ) {
-
-        message.reply('Incorrect command/format entered. Please try again!'); 
-
-
-    }
 
 });
 
