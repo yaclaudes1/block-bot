@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -5,6 +7,13 @@ module.exports = {
         .setName('diffcheck')
         .setDescription('Displays NENG & CHTA Difficulty Info'),
     async execute(interaction) {
-        await interaction.reply('TODO:IMPORT diffcheck API FROM BLOCKCHAIN EXPLORER HERE!');
+
+        await interaction.deferReply();
+
+        const fetchedNengApi = fetch('http://nengexplorer.mooo.com:3001/api/getdifficulty').then(response => response.json());
+        const fetchedChtaApi = fetch('http://chtaexplorer.mooo.com:3002/api/getdifficulty').then(response => response.json());
+        const allData = await Promise.all([fetchedNengApi, fetchedChtaApi]);
+        await interaction.editReply('NENG current difficulty is: ' + allData[0] + '\nCHTA current difficulty is: ' + allData[1]);
+
     },
 };
