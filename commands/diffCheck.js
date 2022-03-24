@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('diffcheck')
+        .setName('diffCheck')
         .setDescription('Displays NENG & CHTA Difficulty Info'),
     async execute(interaction) {
 
