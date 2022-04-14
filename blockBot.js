@@ -1,6 +1,6 @@
 // Require dependencies
 const fetch = require('node-fetch');
-const fs = require('fs');
+const fs = require('node:fs');
 const { Client, Collection, Intents } = require('discord.js');
 
 require('dotenv').config();

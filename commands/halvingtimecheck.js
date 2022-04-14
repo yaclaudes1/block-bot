@@ -4,7 +4,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('halvingTimeCheck')
+        .setName('halvingtimecheck')
         .setDescription('Displays estimated time for next halving rewards event on NENG & CHTA blockchain.'),
     async execute(interaction) {
 
