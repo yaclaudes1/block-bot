@@ -32,8 +32,8 @@ module.exports = {
         const getPreviousChtaBlockHashAPI = fetch(previousChtaBlockHeightAtTwenty).then(response => response.text());
 
         const blockHashArray = await Promise.all([getCurrentNengBlockHashAPI, getCurrentChtaBlockHashAPI, getPreviousNengBlockHashAPI, getPreviousChtaBlockHashAPI]);
-        // promiseDataArray.concat(blockHashArray);
-        // Getblock[hash] info -->Return json with info relevant to timestamp
+
+        // Getblock[hash] info -->Return json/text with info relevant to median timestamp; Note: timestamp with attribute time is based on the miner's time and will have variation between block solves.
 
         const currentNengBlockHash = 'http://nengexplorer.mooo.com:3001/api/getblock?hash=' + blockHashArray[0];
         const currentChtaBlockHash = 'http://chtaexplorer.mooo.com:3002/api/getblock?hash=' + blockHashArray[1];
@@ -49,14 +49,14 @@ module.exports = {
         const getPreviousChtaBlockHashInfoAPI = fetch(previousChtaBlockHash).then(response => response.text()).then(extractTime => extractTime.match(timeRegEx)).then(keepNumbers => keepNumbers.toString().replace(filterLetterRegEx, ''));
 
         const filteredTimeArray = await Promise.all([getCurrentNengBlockHashInfoAPI, getCurrentChtaBlockHashInfoAPI, getPreviousNengBlockHashInfoAPI, getPreviousChtaBlockHashInfoAPI]);
-        //in days
+
         const nengTimeTwentyLastTwentyBlocks = Math.floor(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
         const chtaTimeTwentyLastTwentyBlocks = Math.floor(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
 
         // ***DONE***S1 fetch Block height and calculate prior 20.
         // ***DONE***S2 ReturnblockHash
         // ***DONE*** S3 use S2 to return block hash stats
-        // ***DONE***+***Temp Workaround used regexp to process response.text() + splice string method ***S4 parse JSON and keep time 
+        // ***DONE***+***Temp Workaround used regexp to process response.text() + splice string method ***S4 parse JSON and keep time
         // ***DONE***S5 Get time of currentBlockTime - time of currentBlockTimeMinusTwenty
         // ***DONE***Echo info from S5 as reply in human readable language
         interaction.editReply('Neng solve time for the previous 20 blocks is: ' + nengTimeTwentyLastTwentyBlocks + ' minutes' + '\n\nChta solve time for the previous 20 blocks is: ' + chtaTimeTwentyLastTwentyBlocks + ' minutes');
@@ -65,6 +65,5 @@ module.exports = {
         // interaction.followUp('\n' + filteredTimeArray[0] + '\n' + filteredTimeArray[1] + '\n' + filteredTimeArray[2] + '\n' + filteredTimeArray[3]);
 
 
-        // Find currentBlockIndexTime - BlockIndex[current - 20] convert into minutes to show length of time ]\to solve last 20 blocks, repeat on both chains');
     },
 };
