@@ -50,8 +50,8 @@ module.exports = {
 
         const filteredTimeArray = await Promise.all([getCurrentNengBlockHashInfoAPI, getCurrentChtaBlockHashInfoAPI, getPreviousNengBlockHashInfoAPI, getPreviousChtaBlockHashInfoAPI]);
 
-        const nengTimeTwentyLastTwentyBlocks = Math.floor(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
-        const chtaTimeTwentyLastTwentyBlocks = Math.floor(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
+        const nengTimeTwentyLastTwentyBlocks = Math.round(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
+        const chtaTimeTwentyLastTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
 
         // ***DONE***S1 fetch Block height and calculate prior 20.
         // ***DONE***S2 ReturnblockHash
