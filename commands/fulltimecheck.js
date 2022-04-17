@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
