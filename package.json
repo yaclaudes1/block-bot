@@ -1,7 +1,7 @@
 {
   "name": "discord-block-bot",
   "version": "1.0.0",
-  "description": "Discord bot that pulls NENG/CHTA block information live and returns it on the Discord server that invites it.",
+  "description": "Discord bot that pulls NENG/CHTA block information live from associated explorer site and returns it on the Discord server that invites it.",
   "main": "blockBot.js",
   "dependencies": {
     "@discordjs/builders": "^0.12.0",

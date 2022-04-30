@@ -1,0 +1,5 @@
+{
+    
+	"clientId": "REPLACE WITH CLIENTID FROM DISCORD:  https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications ",
+	"guildId": "REPLACE WITH ID FROM SERVER UTILIZING THIS BOT"
+}
