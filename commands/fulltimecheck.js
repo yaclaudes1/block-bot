@@ -8,8 +8,7 @@ module.exports = {
     async execute(interaction) {
 
         interaction.deferReply();
-        // TODO: After a working prototype is made first task towards easier to read code is to make two arrays/maps one of the specific blockchain url and the other of the specific API components such as getblockcount, etc.
-        // TODO: Simplify readibility of variable names.
+
         // Get current block index and place in corresponding promiseArray
         const getCurrentNengBlockHeightAPI = fetch('http://nengexplorer.mooo.com:3001/api/getblockcount').then(response => response.json());
         const getCurrentChtaBlockHeightAPI = fetch('http://chtaexplorer.mooo.com:3002/api/getblockcount').then(response => response.json());
@@ -18,7 +17,7 @@ module.exports = {
         const currentNengBlockHeight = 'http://nengexplorer.mooo.com:3001/api/getblockhash?index=' + (promiseDataArray[0]);
         const currentChtaBlockHeight = 'http://chtaexplorer.mooo.com:3002/api/getblockhash?index=' + (promiseDataArray[1]);
 
-        // Getblockhash[index] and append to promise array after setting lower bounds
+        // Full day's worth --> 720:CHTA, 1440:NENG
         const previousNengBlockHeightAtFourteenFourty = 'http://nengexplorer.mooo.com:3001/api/getblockhash?index=' + (promiseDataArray[0] - 1440);
         const previousChtaBlockHeightAtSevenTwenty = 'http://chtaexplorer.mooo.com:3002/api/getblockhash?index=' + (promiseDataArray[1] - 720);
 
@@ -31,7 +30,7 @@ module.exports = {
         const blockHashArray = await Promise.all([getCurrentNengBlockHashAPI, getCurrentChtaBlockHashAPI, getPreviousNengBlockHashAPI, getPreviousChtaBlockHashAPI]);
 
         // Getblock[hash] info -->Return json/text with info relevant to median timestamp; Note: timestamp with attribute time is based on the miner's time and will have variation between block solves.
-
+        // Modify time check command code to handle a full's day (block time) worth of time
         const currentNengBlockHash = 'http://nengexplorer.mooo.com:3001/api/getblock?hash=' + blockHashArray[0];
         const currentChtaBlockHash = 'http://chtaexplorer.mooo.com:3002/api/getblock?hash=' + blockHashArray[1];
         const previousNengBlockHash = 'http://nengexplorer.mooo.com:3001/api/getblock?hash=' + blockHashArray[2];
@@ -50,8 +49,7 @@ module.exports = {
         const nengTimeLastFourteenFortyBlocks = Math.round(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
         const chtaTimeLastSevenTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
 
-        // ***DONE***S1 Modify time check command code to handle a full's day (block time) worth of time
-        // ***DONE***S2 Check correctness of time
+
         interaction.editReply('Neng solve time for the previous 1440 blocks is: ' + nengTimeLastFourteenFortyBlocks + ' minutes' + '\n\nChta solve time for the previous 720 blocks is: ' + chtaTimeLastSevenTwentyBlocks + ' minutes');
     },
 };

@@ -10,9 +10,8 @@ module.exports = {
 
 
         interaction.deferReply();
-        // TODO: After a working prototype is made first task towards easier to read code is to make two arrays/maps one of the specific blockchain url and the other of the specific API components such as getblockcount, etc.
-        // TODO: Simplify readibility of variable names.
         // Get current block index and place in corresponding promiseArray
+
         const getCurrentNengBlockHeightAPI = fetch('http://nengexplorer.mooo.com:3001/api/getblockcount').then(response => response.json());
         const getCurrentChtaBlockHeightAPI = fetch('http://chtaexplorer.mooo.com:3002/api/getblockcount').then(response => response.json());
         const promiseDataArray = await Promise.all([getCurrentNengBlockHeightAPI, getCurrentChtaBlockHeightAPI]);
@@ -20,10 +19,9 @@ module.exports = {
         const currentNengBlockHeight = 'http://nengexplorer.mooo.com:3001/api/getblockhash?index=' + (promiseDataArray[0]);
         const currentChtaBlockHeight = 'http://chtaexplorer.mooo.com:3002/api/getblockhash?index=' + (promiseDataArray[1]);
 
-        // Getblockhash[index] and append to promise array after setting lower bounds
+        // Last 20 blocks
         const previousNengBlockHeightAtTwenty = 'http://nengexplorer.mooo.com:3001/api/getblockhash?index=' + (promiseDataArray[0] - 20);
         const previousChtaBlockHeightAtTwenty = 'http://chtaexplorer.mooo.com:3002/api/getblockhash?index=' + (promiseDataArray[1] - 20);
-        // hash too big to fit in buffer directly as json so trying string() instead. NOTE:WORKED!
 
 
         const getCurrentNengBlockHashAPI = fetch(currentNengBlockHeight).then(response => response.text());
@@ -53,16 +51,7 @@ module.exports = {
         const nengTimeTwentyLastTwentyBlocks = Math.round(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
         const chtaTimeTwentyLastTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
 
-        // ***DONE***S1 fetch Block height and calculate prior 20.
-        // ***DONE***S2 ReturnblockHash
-        // ***DONE*** S3 use S2 to return block hash stats
-        // ***DONE***+***Temp Workaround used regexp to process response.text() + splice string method ***S4 parse JSON and keep time
-        // ***DONE***S5 Get time of currentBlockTime - time of currentBlockTimeMinusTwenty
-        // ***DONE***Echo info from S5 as reply in human readable language
         interaction.editReply('Neng solve time for the previous 20 blocks is: ' + nengTimeTwentyLastTwentyBlocks + ' minutes' + '\n\nChta solve time for the previous 20 blocks is: ' + chtaTimeTwentyLastTwentyBlocks + ' minutes');
-        // NOTE: multiple edit replies will overwrite previous. a single reply after doesn't work in a defer reply chain.
-        // interaction.followUp('\n' + previousNengBlockHeightAtTwenty + '\n' + previousChtaBlockHeightAtTwenty);
-        // interaction.followUp('\n' + filteredTimeArray[0] + '\n' + filteredTimeArray[1] + '\n' + filteredTimeArray[2] + '\n' + filteredTimeArray[3]);
 
 
     },

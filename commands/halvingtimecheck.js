@@ -12,8 +12,7 @@ module.exports = {
         const CHTA_HALVING_HEIGHT = 1050000;
         const NENG_BLOCK_TIME_DAY = 1440;
         const CHTA_BLOCK_TIME_DAY = 720;
-        // TODO: After a working prototype is made first task towards easier to read code is to make two arrays/maps one of the specific blockchain url and the other of the specific API components such as getblockcount, etc.
-        // TODO: Simplify readibility of variable names.
+
         // Get current block index and place in corresponding promiseArray
         const getCurrentNengBlockHeightAPI = fetch('http://nengexplorer.mooo.com:3001/api/getblockcount').then(response => response.json());
         const getCurrentChtaBlockHeightAPI = fetch('http://chtaexplorer.mooo.com:3002/api/getblockcount').then(response => response.json());
@@ -50,6 +49,7 @@ module.exports = {
 
         const filteredTimeArray = await Promise.all([getCurrentNengBlockHashInfoAPI, getCurrentChtaBlockHashInfoAPI, getPreviousNengBlockHashInfoAPI, getPreviousChtaBlockHashInfoAPI]);
 
+        // Take one full day estimate of Neng Block and divide against 2.1 million (halving) / Chta Block 1.05 million
         const nengTimeLastFourteenFortyBlocks = Math.round(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
         const chtaTimeLastSevenTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
         let nengHalvingTimeEstimate = 0;
@@ -75,8 +75,7 @@ module.exports = {
         else {
             chtaHalvingTimeEstimate = ((CHTA_HALVING_HEIGHT / CHTA_BLOCK_TIME_DAY) * chtaTimeLastSevenTwentyBlocks) / 1440;
         }
-        // ***DONE**S1: Take one full day estimate of Neng Block and divide against 2.1 million (halving) / Chta Block 1.05 million
-        // ***DONE***S2 Check correctness of time
+
         interaction.editReply('Next Neng Halving event will occur in: ' + Math.round(nengHalvingTimeEstimate) + ' days' + '\n\nNext Chta Halving event will occur in: ' + Math.round(chtaHalvingTimeEstimate) + ' days');
 
     },
