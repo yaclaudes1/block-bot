@@ -4,12 +4,12 @@
   "description": "Discord bot that pulls NENG/CHTA block information live from associated explorer site and returns it on the Discord server that invites it.",
   "main": "blockBot.js",
   "dependencies": {
-    "@discordjs/builders": "^0.12.0",
+    "@discordjs/builders": "^1.7.0",
     "@discordjs/rest": "^0.3.0",
-    "discord-api-types": "^0.26.1",
+    "discord-api-types": "^0.37.66",
     "discord.js": "^13.6.0",
-    "dotenv": "^10.0.0",
-    "node-fetch": "^2.6.7"
+    "dotenv": "^16.3.1",
+    "node-fetch": "^2.6.6"
   },
   "devDependencies": {
     "eslint": "^8.6.0"
