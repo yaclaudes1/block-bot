@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -7,10 +6,7 @@ module.exports = {
         .setName('timecheck')
         .setDescription('Displays solve time for last 20 blocks on CHTA & NENG blockchains'),
     async execute(interaction) {
-
-
         await interaction.deferReply();
-
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
         const CHTA_EXPLORER = 'http://chtaexplorer.mooo.com:3002/api/';
@@ -27,7 +23,6 @@ module.exports = {
         // Last 20 blocks
         const previousNengBlockHeightAtTwenty = NENG_EXPLORER + 'getblockhash?index=' + (promiseDataArray[0] - 20);
         const previousChtaBlockHeightAtTwenty = CHTA_EXPLORER + 'getblockhash?index=' + (promiseDataArray[1] - 20);
-
 
         const getCurrentNengBlockHashAPI = fetch(currentNengBlockHeight).then(response => response.text());
         const getCurrentChtaBlockHashAPI = fetch(currentChtaBlockHeight).then(response => response.text());
@@ -57,7 +52,5 @@ module.exports = {
         const chtaTimeTwentyLastTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
 
         interaction.editReply('Neng solve time for the previous 20 blocks is: ' + nengTimeTwentyLastTwentyBlocks + ' minutes' + '\n\nChta solve time for the previous 20 blocks is: ' + chtaTimeTwentyLastTwentyBlocks + ' minutes');
-
-
     }
 };

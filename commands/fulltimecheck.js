@@ -6,7 +6,6 @@ module.exports = {
         .setName('fulltimecheck')
         .setDescription('Displays a full day solve time for last 720 blocks on CHTA & last 1440 blocks on NENG blockchains'),
     async execute(interaction) {
-
         await interaction.deferReply();
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
@@ -23,7 +22,6 @@ module.exports = {
         // Full day's worth --> 720:CHTA, 1440:NENG
         const previousNengBlockHeightAtFourteenFourty = NENG_EXPLORER + 'getblockhash?index=' + (promiseDataArray[0] - 1440);
         const previousChtaBlockHeightAtSevenTwenty = CHTA_EXPLORER + 'getblockhash?index=' + (promiseDataArray[1] - 720);
-
 
         const getCurrentNengBlockHashAPI = fetch(currentNengBlockHeight).then(response => response.text());
         const getCurrentChtaBlockHashAPI = fetch(currentChtaBlockHeight).then(response => response.text());
@@ -51,7 +49,6 @@ module.exports = {
 
         const nengTimeLastFourteenFortyBlocks = Math.round(((filteredTimeArray[0] - filteredTimeArray[2]) / 60));
         const chtaTimeLastSevenTwentyBlocks = Math.round(((filteredTimeArray[1] - filteredTimeArray[3]) / 60));
-
 
         interaction.editReply('Neng solve time for the previous 1440 blocks is: ' + nengTimeLastFourteenFortyBlocks + ' minutes' + '\n\nChta solve time for the previous 720 blocks is: ' + chtaTimeLastSevenTwentyBlocks + ' minutes');
     }

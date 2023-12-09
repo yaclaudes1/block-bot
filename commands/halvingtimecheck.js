@@ -6,7 +6,6 @@ module.exports = {
         .setName('halvingtimecheck')
         .setDescription('Displays estimated time for next halving rewards event on NENG & CHTA blockchain.'),
     async execute(interaction) {
-
         await interaction.deferReply();
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
@@ -16,7 +15,6 @@ module.exports = {
         const CHTA_HALVING_HEIGHT = 1050000;
         const NENG_BLOCK_TIME_DAY = 1440;
         const CHTA_BLOCK_TIME_DAY = 720;
-
 
         // Get current block index and place in corresponding promiseArray
         const getCurrentNengBlockHeightAPI = fetch(NENG_EXPLORER + 'getblockcount').then(response => response.json());
@@ -29,7 +27,6 @@ module.exports = {
         // Getblockhash[index] and append to promise array after setting lower bounds
         const previousNengBlockHeightAtFourteenFourty = NENG_EXPLORER + 'getblockhash?index=' + (promiseDataArray[0] - 1440);
         const previousChtaBlockHeightAtSevenTwenty = CHTA_EXPLORER + 'getblockhash?index=' + (promiseDataArray[1] - 720);
-
 
         const getCurrentNengBlockHashAPI = fetch(currentNengBlockHeight).then(response => response.text());
         const getCurrentChtaBlockHashAPI = fetch(currentChtaBlockHeight).then(response => response.text());
@@ -67,13 +64,12 @@ module.exports = {
             numOfNengHalvingEvents = Math.ceil(promiseDataArray[0] / NENG_HALVING_HEIGHT);
             nengHalvingTimeEstimate = ((((numOfNengHalvingEvents * NENG_HALVING_HEIGHT) - promiseDataArray[0]) / NENG_BLOCK_TIME_DAY) * nengTimeLastFourteenFortyBlocks) / 1440;
         }
-
         else {
             nengHalvingTimeEstimate = ((NENG_HALVING_HEIGHT / NENG_BLOCK_TIME_DAY) * nengTimeLastFourteenFortyBlocks) / 1440;
         }
+
         // Estimate amount of time until next halving event on the Chta Block Chain based on time to solve a full 720 chta blocks converted to days
         if ((promiseDataArray[1] % CHTA_HALVING_HEIGHT) != 0) {
-
             numOfChtaHalvingEvents = Math.ceil(promiseDataArray[1] / CHTA_HALVING_HEIGHT);
             chtaHalvingTimeEstimate = ((((numOfChtaHalvingEvents * CHTA_HALVING_HEIGHT) - promiseDataArray[1]) / CHTA_BLOCK_TIME_DAY) * chtaTimeLastSevenTwentyBlocks) / 1440;
         }
@@ -82,6 +78,5 @@ module.exports = {
         }
 
         interaction.editReply('Next Neng Halving event will occur in: ' + Math.round(nengHalvingTimeEstimate) + ' days' + '\n\nNext Chta Halving event will occur in: ' + Math.round(chtaHalvingTimeEstimate) + ' days');
-
     }
 };

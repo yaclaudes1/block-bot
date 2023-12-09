@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
@@ -17,6 +16,5 @@ module.exports = {
         const fetchedChtaApi = fetch(CHTA_EXPLORER + 'getdifficulty').then(response => response.json());
         const allData = await Promise.all([fetchedNengApi, fetchedChtaApi]);
         interaction.editReply('NENG current difficulty is: ' + Number((allData[0]).toFixed(6)).toLocaleString() + '\nCHTA current difficulty is: ' + Number((allData[1]).toFixed(6)).toLocaleString());
-
     }
 };
