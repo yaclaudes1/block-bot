@@ -8,7 +8,7 @@ module.exports = {
         .setDescription('Displays NENG & CHTA Difficulty Info'),
     async execute(interaction) {
 
-        interaction.deferReply();
+        await interaction.deferReply();
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
         const CHTA_EXPLORER = 'http://chtaexplorer.mooo.com:3002/api/';
@@ -18,5 +18,5 @@ module.exports = {
         const allData = await Promise.all([fetchedNengApi, fetchedChtaApi]);
         interaction.editReply('NENG current difficulty is: ' + Number((allData[0]).toFixed(6)).toLocaleString() + '\nCHTA current difficulty is: ' + Number((allData[1]).toFixed(6)).toLocaleString());
 
-    },
+    }
 };

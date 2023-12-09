@@ -7,7 +7,7 @@ module.exports = {
         .setDescription('Displays a full day solve time for last 720 blocks on CHTA & last 1440 blocks on NENG blockchains'),
     async execute(interaction) {
 
-        interaction.deferReply();
+        await interaction.deferReply();
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
         const CHTA_EXPLORER = 'http://chtaexplorer.mooo.com:3002/api/';
@@ -54,5 +54,5 @@ module.exports = {
 
 
         interaction.editReply('Neng solve time for the previous 1440 blocks is: ' + nengTimeLastFourteenFortyBlocks + ' minutes' + '\n\nChta solve time for the previous 720 blocks is: ' + chtaTimeLastSevenTwentyBlocks + ' minutes');
-    },
+    }
 };

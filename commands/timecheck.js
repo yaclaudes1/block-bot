@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction) {
 
 
-        interaction.deferReply();
+        await interaction.deferReply();
 
 
         const NENG_EXPLORER = 'http://nengexplorer.mooo.com:3001/api/';
@@ -59,5 +59,5 @@ module.exports = {
         interaction.editReply('Neng solve time for the previous 20 blocks is: ' + nengTimeTwentyLastTwentyBlocks + ' minutes' + '\n\nChta solve time for the previous 20 blocks is: ' + chtaTimeTwentyLastTwentyBlocks + ' minutes');
 
 
-    },
+    }
 };

@@ -83,5 +83,5 @@ module.exports = {
 
         interaction.editReply('Next Neng Halving event will occur in: ' + Math.round(nengHalvingTimeEstimate) + ' days' + '\n\nNext Chta Halving event will occur in: ' + Math.round(chtaHalvingTimeEstimate) + ' days');
 
-    },
+    }
 };
